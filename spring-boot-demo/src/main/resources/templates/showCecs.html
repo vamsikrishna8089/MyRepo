@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Cec</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<h2>List of Cecs</h2>
+	 <form action="/showCecs"> 
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Message</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cec : ${Cecs}">
+					<td th:text="${cec.name}"></td>
+					<td th:text="${cec.cecPhone}"></td>
+					 <td><input type="text" id="message"  size="40 "></td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="submit">submit</button>
+	</form>
+
+</body>
+
+</html>

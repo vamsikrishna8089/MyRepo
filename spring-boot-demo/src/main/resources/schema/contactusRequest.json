@@ -1,0 +1,513 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "id": "#contactusRequest",
+    "description": "Allows the insertion of a Contact Us request into Unilever backend systems",
+    "properties": {
+        "brandCode": {
+            "type": "string",
+            "description": "A code identifying the brand. Brand codes should follow UL Master data coding wherever possible",
+            "maxLength": 20
+            },		
+		"origin": {		
+            "type": "string",		
+            "description": "Origin of the case",		
+            "maxLength": 20		
+        },		
+		"socialOrigin": {		
+            "type": "string",		
+            "description": "Social Origin of the case",		
+            "maxLength": 20		
+        },		
+		"brandAmbassadorStatus": {		
+            "type": "string",		
+            "description": "brand ambassidor status",		
+            "maxLength": 20		
+        },		
+		"caseComment": {		
+                    "description": "A free text field filled in by the consumer to explain their issue.",		
+                    "type": "string",		
+                    "maxLength": 2000
+        },
+        "country": {
+            "description": "The country in which the contact us request is based in ISO-3166-1 standard",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+        },
+        "consumer": {
+            "type": "object",
+            "description": "Describes the Consumer who is making this contact us request",
+            "properties": {
+            	"legalAgeConfirmation": {
+                    "description": "Indicates whether age consent is granted or not",
+                    "type": "boolean"
+                },
+                "language": {
+                    "description": "The preferred language of the individual in ISO-639-1 standard",
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 2
+                },
+                "applicationId": {
+                    "description": "The application ID of the consumer",
+                    "type": "string",
+                    "maxLength": 999
+                },
+                "identity": {
+                    "description": "Indicates where identity details will be received.",
+                    "type": "object",
+                    "properties": {
+                        "fullName": {
+                            "description": "A concatenation of family name, given name and middle name(s) (depending on country rules). The formatted name with all the pieces in the proper place",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "givenName": {
+                            "description": "The non-family part of a full name by which a person is generally addressed is described as the given or chosen name. Also known as a person’s first name.",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "familyName": {
+                            "description": "The Family Name is the non-chosen or inherited name, also known as the last name in the Western context. This is the current Family Name and may include one or more name elements. For example: den Bergh.",
+                            "type": "string",
+                            "maxLength": 240
+                        },
+                        "preferredName": {
+                            "description": "The name a person prefers to be called if different from Given Name). For example: Bob, Buddy, Mike.",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "familyNameofBirth": {
+                            "description": "This is the family name of the individual at birth.  The Family Name is the non-chosen or inherited name, also known as the last name in the Western context. The Family Name may include one or more name elements. For example: den Bergh.",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "honorificPrefix": {
+                            "description": "A title prefixing a person's name",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "honorificSuffix": {
+                            "description": "A title suffixing a person's name ",
+                            "type": "string",
+                            "maxLength": 120
+                        }
+                    },
+                    "required": [
+                        "familyName"
+                    ],
+                    "additionalProperties": true
+                },
+                "contactDetail": {
+                    "description": "consumer contact details",
+                    "type": "array",
+                    "minItems": 1,
+                    "items": [
+                        {
+                            "type": "object",
+                            "description": "Indicates the contact details will be populated in array format.",
+                            "properties": {
+                                "channelType": {
+                                    "description": "Representing the channel that the contact information relates to.",
+                                    "type": "object",
+                                    "properties": {
+                                        "channel": {
+                                            "description": "The Email channel is a required contact detail and must appear first in the array of contact details",
+                                            "enum": [
+                                                "EM"
+                                            ],
+                                            "maxLength": 2
+                                        }
+                                    },
+                                    "required": [
+                                        "channel"
+                                    ],
+                                    "additionalProperties": false
+                                },
+                                "id": {
+                                    "description": "Representing the individual's contact details for the channel",
+                                    "type": "string",
+                                    "maxLength": 120
+                                }
+                            },
+                            "required": [
+                                "channelType",
+                                "id"
+                            ],
+                            "additionalProperties": false
+                        }
+                    ],
+                    "additionalItems": {
+                        "type": "object",
+                        "description": "Indicates the contact details will be populated in array format.",
+                        "properties": {
+                            "channelType": {
+                                "description": "Representing the channel that the contact information relates to.",
+                                "type": "object",
+                                "properties": {
+                                    "channel": {
+                                        "description": "Representing the channel that the contact information relates to and must appear after the required Email channel. The allowed values are EM stands for 'Email', FB stands for 'Facebook', IN stands for 'Instagram', MO stands for 'Mobile phone', PH stands for 'Phone', PI stands for 'Pintrest', TW stands for 'Twitter'.",
+                                        "enum": [
+                                            "EM",
+                                            "FB",
+                                            "IN",
+                                            "MO",
+                                            "PH",
+                                            "PI",
+                                            "TW"
+                                        ],
+                                        "maxLength": 2
+                                    }
+                                },
+                                "required": [
+                                    "channel"
+                                ],
+                                "additionalProperties": false
+                            },
+                            "id": {
+                                "description": "Representing the individual's contact details for the channel",
+                                "type": "string",
+                                "maxLength": 120
+                            }
+                        },
+                        "required": [
+                            "channelType",
+                            "id"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "dateOfBirth": {
+                    "description": "The Date of Birth of the individual in YYYY-MM-DDThh:mm:ss.sssTZD format. Append 'T00:00:00.000Z' if time is not collected",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "gender": {
+                    "description": "From http://tools.ietf.org/html/rfc6350#page-32.  This corresponds,to the (biological) sex of the individual.  The allowed values are M stands for 'male', F stands for 'female', O stands for 'other', N stands for 'none or not applicable', U stands for 'unknown'.",
+                    "enum": [
+                        "F",
+                        "M",
+                        "N",
+                        "O",
+                        "U"
+                    ],
+                    "maxLength": 1
+                },
+                "address": {
+                    "type": "object",
+                    "description": "Address element properties definition, based on http://teamsites.unilever.com/collab/ISB/Pages/Unilever-Work-Location.aspx",
+                    "properties": {
+                        "houseNameOrNumber": {
+                            "description": "The house number or name of the building",
+                            "type": "string",
+                            "maxLength": 100
+                        },
+                        "addressLine1": {
+                            "description": "The street name of this location",
+                            "type": "string",
+                            "maxLength": 300
+                        },
+                        "addressLine2": {
+                            "description": "Further Address information of this locations address",
+                            "type": "string",
+                            "maxLength": 300
+                        },
+                        "cityName": {
+                            "description": "The town or city of this locations address",
+                            "type": "string",
+                            "maxLength": 120
+                        },
+                        "postalCode": {
+                            "description": "Postal or Zip Code of this locations address",
+                            "type": "string",
+                            "maxLength": 60
+                        },
+                        "stateOrProvince": {
+                            "description": "State, Province, Department, Precinct or County information of this locations address",
+                            "type": "string",
+                            "maxLength": 240
+                        },
+                        "country": {
+                            "description": "Country in which this location is based - ISO 3166-1",
+                            "type": "string",
+                            "maxLength": 2
+                        }
+                    },
+                    "additionalProperties": true
+                },
+                "optInStatus": {
+                    "description": "OptInStatus element properties definition.",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "description": "OptInStatus element properties definition.",
+                        "properties": {
+                            "channel": {
+                                "type": "object",
+                                "properties": {
+                                    "channel": {
+                                        "description": "Representing the channel that the opt-in information relates to. The allowed values are EM stands for 'Email', FB stands for 'Facebook', IN stands for 'Instagram', MO stands for 'Mobile phone', PH stands for 'Phone', PI stands for 'Pintrest', TW stands for 'Twitter'.",
+                                        "enum": [
+                                            "EM",
+                                            "FB",
+                                            "IN",
+                                            "MO",
+                                            "PH",
+                                            "PI",
+                                            "TW"
+                                        ],
+                                        "maxLength": 2
+                                    }
+                                },
+                                "required": [
+                                    "channel"
+                                ],
+                                "additionalProperties": false
+                            },
+                            "optinLevel": {
+                                "description": "The level within the Unilever Global Preference Hierarchy that the optin refers to. Provided by Unilever when the consumer of the service is on-boarded",
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 9
+                            },
+                            "optinValue": {
+                                "description": "The value that relates to the level of the Global Preference Hierarchy that the optin refers to. For brand-level 3, examples would include 'Dove','Knorr'. Provided by Unilever when the consumer of the service is on-boarded.",
+                                "type": "string",
+                                "maxLength": 999
+                            },
+							"subscribed": {
+								"description": "Indicates whether the user opted in or out for this channel.",
+								"type": "boolean"
+							}
+                        },
+                        "required": [
+                            "channel"
+                        ],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": [
+                "language",
+                "identity",
+                "contactDetail"
+            ]
+        },
+        "contactUsDetail": {
+            "type": "object",
+            "description": "Indicates the type of Contact Us contact",
+            "properties": {
+                "enquiryType": {
+                    "type": "string",
+                    "description": "Type of enquiry for the contact",
+                    "enum": [
+                        "Question",
+                        "Concern",
+                        "Privacy",
+                        "Other Enquiry",
+						"Right to Access",
+                        "Right to Delete",
+                        "Opt out of Sale",
+                        "Not Sure Want to Know More"
+                    ]
+                },
+                "subject": {
+                    "type": "string",
+                    "description": "valid call center subject"
+                },
+                "comment": {
+                    "description": "A free text field filled in by the consumer to explain their issue. TODO: Length to be decided",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                },
+                "productInfo": {
+                    "type": "object",
+                    "description": "If a Question or concern is Product related then this section should be completed",
+                    "properties": {
+                        "productDescription": {
+                            "type": "string",
+                            "description": "A free text description of the product",
+                            "maxLength": 100
+                        },
+                        "productSize": {
+                            "type": "string",
+                            "description": "The size of the product",
+                            "maxLength": 100
+                        },
+                        "purchaseCost": {
+                            "type": "string",
+                            "description": "Cost of purchase of the product",
+                            "maxLength": 100
+                        },
+                        "expiryDate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "The date of expiry of the product in YYYY-MM-DDThh:mm:ss.sssTZD format. Append 'T00:00:00.000Z' if time is not collected"
+                        },
+                        "manufacturingCodeDetail": {
+                            "type": "string",
+                            "description": "Details about whether the manufacturing code being provided is full or partial",
+                            "enum": [
+                                "Full",
+                                "Partial",
+                                "Not Legible",
+                                "Not Available"
+                            ]
+                        },
+                        "manufacturingCode": {
+                            "type": "string",
+                            "description": "Manufacturing code of the product",
+                            "maxLength": 99
+                        },
+                        "storeNamePurchasedFrom": {
+                            "type": "string",
+                            "description": "Store the product being complained about was purchased from",
+                            "maxLength": 100
+                        },
+                        "cityNamePurchasedFrom": {
+                            "type": "string",
+                            "description": "The Town or City that the product was purchased from",
+                            "maxLength": 100
+                        },
+                        "GTINCodeDetail": {
+                            "type": "string",
+                            "description": "The Global Trade Item Number, GTIN, is an identification number that may be encoded in UPC-A, UPC-E, EAN-8 & EAN-13 barcodes as well as other barcodes in the GS1 System",
+                            "maxLength": 14
+                        },
+                        "purchaseDate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "The date of purchase of the product in YYYY-MM-DDThh:mm:ss.sssTZD format. Append 'T00:00:00.000Z' if time is not collected"
+                        }
+                    }
+                },
+                "retailOutletInfo": {
+                    "type": "object",
+                    "description": "If a Question or concern is Retail outlet related then this section should be completed",
+                    "properties": {
+                        "retailOutletAddress": {
+                            "type": "object",
+                            "description": "Address element properties definition, based on http://teamsites.unilever.com/collab/ISB/Pages/Unilever-Work-Location.aspx",
+                            "properties": {
+                                "outletNameOrNumber": {
+                                    "description": "The house number or name of the building",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "addressLine1": {
+                                    "description": "The street name of this location",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "addressLine2": {
+                                    "description": "Further Address information of this locations address",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "cityName": {
+                                    "description": "The town or city of this locations address",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "postalCode": {
+                                    "description": "Postal or Zip Code of this locations address",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "stateOrProvince": {
+                                    "description": "State, Province, Department, Precinct or County information of this locations address",
+                                    "type": "string",
+                                    "maxLength": 100
+                                },
+                                "country": {
+                                    "description": "Country in which this location is based - ISO 3166-1",
+                                    "type": "string",
+                                    "maxLength": 2
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "visitDateAndTime": {
+                            "description": "The date and time of visit to the retail outlet in YYYY-MM-DDThh:mm:ss.sssTZD format. Append 'T00:00:00.000Z' if time is not collected",
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                },
+                "privacyEnquiry": {
+                    "type": "string",
+                    "description": "Privacy enquiry details",
+                    "enum": [
+                        "Change of Personal Details",
+                        "Unsubscribe",
+                        "Other Personal Data Requests",
+                        "Contact My Local DPO"
+                    ]
+                }
+            },
+            "required": [
+                "comment",
+                "enquiryType"
+            ]
+        },
+        "Limitless": {		
+            "type": "object",		
+            "description": "Describes the Limitless details from contact us request",		
+            "properties": {		
+                "transcriptTime": {		
+                    "type": "string",		
+                    "description": "describes time",		
+                    "format": "date-time"		
+                },		
+                "transcriptDetails": {		
+                    "type": "string",		
+                    "description": "Details provided in the limitless transcript"		
+                },		
+				"transcriptUrl": {		
+                    "type": "string",		
+                    "description": "describes url"		
+                },		
+				"transcriptDevice": {		
+                    "type": "string",		
+                    "description": "describes device"		
+                }		
+			}		
+		},
+        "additionalFields": {
+            "description": "Additional fields which will be mapped into the Case description within the carelines system.  Approval from the Carelines Product owner should be sought before using this section",
+            "type": "array",
+            "maxItems": 10,
+            "items": [
+                {
+                    "type": "object",
+                    "description": "Indicates the additional fields will be populated in array format.",
+                    "properties": {
+                        "fieldName": {
+                            "description": "Representing the name of an additional field",
+                            "type": "string",
+                            "maxLength": 30
+                        },
+                        "fieldValue": {
+                            "description": "Representing the value of an additional field",
+                            "type": "string",
+                            "maxLength": 999
+                        }
+                    },
+                    "required": [
+                        "fieldName",
+                        "fieldValue"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
+        }
+    },
+    "required": [
+        "brandCode",
+        "country",
+        "consumer",
+        "contactUsDetail"
+    ]
+}
