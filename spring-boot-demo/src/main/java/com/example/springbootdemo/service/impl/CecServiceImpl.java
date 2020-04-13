@@ -1,6 +1,7 @@
 package com.example.springbootdemo.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -13,18 +14,23 @@ import com.example.springbootdemo.service.CecService;
 
 @Service
 @Transactional
-public class CecServiceImpl implements  CecService{
+public class CecServiceImpl implements CecService {
 
 	@Autowired
-    private CecRepository repository;
-	
+	private CecRepository cecRepository;
+
 	@Override
 	public List<Cec> findAll() {
-		
-		 List<Cec> cities = (List<Cec>)repository.findAll();
-
-	        return cities;
-	        
+		List<Cec> cities = (List<Cec>) cecRepository.findAll();
+		return cities;
 	}
+
+	@Override
+	public Cec findCecById(Long id) {
+		Optional<Cec> opt =cecRepository.findById(id);
+		return (opt.isPresent()) ? opt.get() : null;
+	}
+	
+	
 
 }

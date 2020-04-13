@@ -8,5 +8,4 @@ import com.example.springbootdemo.model.Cec;
 @Repository
 public interface CecRepository extends JpaRepository<Cec, Long> {
 
-	
 }

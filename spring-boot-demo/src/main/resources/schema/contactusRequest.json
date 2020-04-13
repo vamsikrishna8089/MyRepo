@@ -1,5 +1,40 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+    	"contactDetailObj":{
+                            "type": "object",
+                            "description": "Indicates the contact details will be populated in array format.",
+                            "properties": {
+                                "channelType": {
+                                    "description": "Representing the channel that the contact information relates to.",
+                                    "type": "object",
+                                    "properties": {
+                                        "channel": {
+                                            "description": "The Email channel is a required contact detail and must appear first in the array of contact details",
+                                            "enum": [
+                                                "EM"
+                                            ],
+                                            "maxLength": 2
+                                        }
+                                    },
+                                    "required": [
+                                        "channel"
+                                    ],
+                                    "additionalProperties": false
+                                },
+                                "id": {
+                                    "description": "Representing the individual's contact details for the channel",
+                                    "type": "string",
+                                    "maxLength": 120
+                                }
+                            },
+                            "required": [
+                                "channelType",
+                                "id"
+                            ],
+                            "additionalProperties": false
+    	}
+    },
     "type": "object",
     "id": "#contactusRequest",
     "description": "Allows the insertion of a Contact Us request into Unilever backend systems",
@@ -103,41 +138,7 @@
                     "description": "consumer contact details",
                     "type": "array",
                     "minItems": 1,
-                    "items": [
-                        {
-                            "type": "object",
-                            "description": "Indicates the contact details will be populated in array format.",
-                            "properties": {
-                                "channelType": {
-                                    "description": "Representing the channel that the contact information relates to.",
-                                    "type": "object",
-                                    "properties": {
-                                        "channel": {
-                                            "description": "The Email channel is a required contact detail and must appear first in the array of contact details",
-                                            "enum": [
-                                                "EM"
-                                            ],
-                                            "maxLength": 2
-                                        }
-                                    },
-                                    "required": [
-                                        "channel"
-                                    ],
-                                    "additionalProperties": false
-                                },
-                                "id": {
-                                    "description": "Representing the individual's contact details for the channel",
-                                    "type": "string",
-                                    "maxLength": 120
-                                }
-                            },
-                            "required": [
-                                "channelType",
-                                "id"
-                            ],
-                            "additionalProperties": false
-                        }
-                    ],
+                    "items": {"$ref": "#/definitions/contactDetailObj"},
                     "additionalItems": {
                         "type": "object",
                         "description": "Indicates the contact details will be populated in array format.",

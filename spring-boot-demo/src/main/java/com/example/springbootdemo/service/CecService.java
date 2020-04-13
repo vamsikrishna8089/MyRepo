@@ -6,6 +6,8 @@ import com.example.springbootdemo.model.Cec;
 
 public interface CecService {
 	
-	List<Cec> findAll();
+	public List<Cec> findAll();
+	
+	public Cec findCecById(Long id);
 
 }
